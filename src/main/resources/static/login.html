@@ -1,0 +1,76 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Star钱包-登录</title>
+
+    <!-- begin::global styles -->
+    <link rel="stylesheet" href="assets/vendors/bundle.css" type="text/css">
+    <!-- end::global styles -->
+    <link rel="stylesheet" href="assets/css/app.css" type="text/css">
+    <!--<link rel="stylesheet" href="assets/css/custom.css" type="text/css">
+-->
+</head>
+<body style="background-image: url(assets/media/image/sky.jpg); background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;">
+
+<div class="col-md-6" style="margin: auto">
+    <!-- 登录框 -->
+    <div class="card" style="height: 100%; width: 50%; margin: auto">
+        <div class="card-body">
+            <h5 class="card-title"  style="text-align: center;">欢迎来到 Star钱包</h5>
+            <form method="post">
+                <!-- 表单中的一行 -->
+                <div class="form-group row">
+                    <label for="inputPhoneNumber" class="col-sm-2 col-form-label">帐号</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" id="inputPhoneNumber" placeholder="请输入手机号/帐号" />
+                    </div>
+                </div>
+                <!-- 表单中的一行 -->
+                <div class="form-group row">
+                    <label for="inputPassword" class="col-sm-2 col-form-label">密码</label>
+                    <div class="col-sm-8">
+                        <input type="password" class="form-control" id="inputPassword" placeholder="请输入密码" />
+                    </div>
+                </div>
+                <a href="register.html">没有账号？去注册</a>
+                <br /><br />
+            </form>
+            <h6 style="text-align: center; color: #ff0000; display: none" id="accountError">帐号或密码错误</h6>
+            <div class="form-group row" style="text-align: center">
+                <div class="col-sm-12">
+                    <button type="submit" class="btn btn-primary" onclick="checkAccount()">登录</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</main>
+</body>
+
+<script src="assets/js/jquery-3.5.1.js"></script>
+<script>
+    function checkAccount() {
+        let phoneNumber = document.getElementById("inputPhoneNumber").value;
+        let password = document.getElementById("inputPassword").value;
+        $.ajax({
+            url : "/login",
+            type : "post",
+            async : false,
+            data : {"inputPhoneNumber":phoneNumber, "inputPassword":password},
+            success : function (data) {
+                if (data == false){
+                    document.getElementById("accountError").style.display = "block";
+                }
+                else {
+                    window.location.href="main.html";
+                }
+            }
+        });
+    }
+</script>
+</html>

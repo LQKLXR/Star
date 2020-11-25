@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 该文件编写mybatis中的mapper接口里面的方法提供对应的sql语句 -->
+<mapper namespace="com.lqk.coffer.record.RecordMapper">
+    <resultMap id="recordMap" type="com.lqk.coffer.record.Record">
+        <id property="recordId" column="record_id"></id>
+        <result property="type" column="record_type"></result>
+        <result property="linkedAccount" column="record_linked_account"></result>
+        <result property="amount" column="record_amount"></result>
+        <result property="reason" column="record_reason"></result>
+        <result property="note" column="record_note"></result>
+        <result property="dateTime" column="record_datetime"></result>
+        <result property="assetId" column="asset_id"></result>
+        <result property="accountId" column="account_id"></result>
+    </resultMap>
+    <select id="selectAllRecord" parameterType="java.lang.Integer" resultMap="recordMap">
+        SELECT
+        *
+        FROM
+        record
+        WHERE
+        account_id = #{accountId}
+        ORDER BY
+        record_datetime
+        DESC
+    </select>
+
+    <select id="selectRecordByAssetId" parameterType="java.lang.Integer" resultMap="recordMap">
+        SELECT
+        *
+        FROM
+        record
+        WHERE
+        account_id = #{accountId}
+        AND
+        asset_id = #{assetId}
+        ORDER BY
+        record_datetime
+        DESC
+    </select>
+
+    <insert id="insertRecord" parameterType="com.lqk.coffer.record.Record">
+        INSERT
+        INTO
+        record
+        (
+        record_id, record_type, record_linked_account, record_amount, record_reason, record_note, record_datetime, asset_id, account_id
+        )
+        VALUES
+        (
+        #{recordId},#{type},#{linkedAccount},ABS(#{amount}),#{reason},#{note},#{dateTime},#{assetId},#{accountId}
+        )
+    </insert>
+</mapper>

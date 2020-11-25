@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 该文件编写mybatis中的mapper接口里面的方法提供对应的sql语句 -->
+<mapper namespace="com.lqk.coffer.account.AccountMapper">
+
+    <resultMap id="accountMap" type="com.lqk.coffer.account.Account">
+        <id column="account_id" property="accountId"></id>
+        <result column="account_phone_number" property="phoneNumber"></result>
+        <result column="account_password" property="password"></result>
+    </resultMap>
+
+    <insert id="insertAccount" parameterType="com.lqk.coffer.account.Account" useGeneratedKeys="true"
+            keyProperty="accountId">
+        INSERT INTO
+        account(account_phone_number, account_password)
+        VALUES
+        (#{phoneNumber}, #{password})
+    </insert>
+
+    <select id="selectAccount" resultMap="accountMap">
+        SELECT
+        account_id, account_phone_number, account_password
+        FROM
+        account
+        WHERE
+        account_phone_number = #{phoneNumber}
+        AND
+        account_password = #{password}
+    </select>
+
+    <select id="existAccount" parameterType="java.lang.String" resultType="java.lang.Boolean">
+        SELECT
+        count(1)
+        FROM
+        account
+        WHERE
+        account_phone_number = #{phoneNumber}
+    </select>
+</mapper>

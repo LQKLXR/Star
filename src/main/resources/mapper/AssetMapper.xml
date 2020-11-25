@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 该文件编写mybatis中的mapper接口里面的方法提供对应的sql语句 -->
+<mapper namespace="com.lqk.coffer.asset.AssetMapper">
+    
+    <insert id="insertAsset" parameterType="com.lqk.coffer.asset.Asset" useGeneratedKeys="true" keyProperty="assetId">
+        INSERT INTO
+        asset(asset_name, asset_amount, asset_note, asset_create_time, account_id)
+        VALUES
+        (#{name}, #{amount}, #{note}, #{createTime}, #{accountId})
+    </insert>
+
+    <update id="changeAmount">
+        UPDATE
+        asset
+        SET
+        asset_amount = asset_amount + #{changedAmount}
+        WHERE
+        asset_id = #{assetId}
+    </update>
+
+    <select id="getAssetList" resultMap="assetMap" parameterType="java.lang.Integer">
+        SELECT
+        asset_id, asset_name, asset_amount, asset_note, asset_create_time, account_id
+        FROM
+        asset
+        WHERE
+        account_id = #{accountId}
+    </select>
+
+    <delete id="deleteAsset" parameterType="java.lang.Integer">
+        DELETE
+        FROM
+        asset
+        WHERE
+        asset_id = #{assetId}
+    </delete>
+
+    <resultMap id="assetMap" type="com.lqk.coffer.asset.Asset">
+        <id property="assetId" column="asset_id"></id>
+        <result property="name" column="asset_name"></result>
+        <result property="amount" column="asset_amount"></result>
+        <result property="note" column="asset_note"></result>
+        <result property="createTime" column="asset_create_time"></result>
+        <result property="accountId" column="account_id"></result>
+    </resultMap>
+</mapper>

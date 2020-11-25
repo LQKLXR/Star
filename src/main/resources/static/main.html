@@ -1,0 +1,142 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Star</title>
+    <!-- begin::global styles -->
+    <link rel="stylesheet" href="assets/vendors/bundle.css" type="text/css">
+    <!-- end::global styles -->
+    <!-- begin::custom styles -->
+    <link rel="stylesheet" href="assets/css/app.css" type="text/css">
+    <link rel="stylesheet" href="assets/css/custom.css" type="text/css">
+    <!-- end::custom styles -->
+</head>
+<style>
+    /* 遮罩层 */
+    #popLayer {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: none;
+        z-index: 9999;
+        -moz-opacity: 0.8;
+        opacity: .80;
+        filter: alpha(opacity=80);
+    }
+
+    /* 新的收入弹出层 */
+    #popBox {
+        display: none;
+        background-color: #FFFFFF;
+        z-index: 10000;
+        width: 1000px;
+        height: 450px;
+        position: fixed;
+        top: 100px;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        margin: auto;
+    }
+</style>
+
+
+<body class="horizontal-side-menu">
+<!-- begin::side menu -->
+<div class="side-menu">
+    <div class='side-menu-body'>
+        <ul>
+            <li class="open">
+                <a data-attr="layout-builder-toggle" href="#">
+                    <i class="icon ti-layout"></i>
+                    <span>首页</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- end::side menu -->
+
+<!-- begin::navbar -->
+<nav class="navbar">
+    <div class="container-fluid">
+        <div class="header-logo" style="margin: auto;">
+            <a href="javascript:void(0)">
+                <h4 style="color: #50D4FD">欢迎来到 Star 钱包</h4>
+            </a>
+        </div>
+    </div>
+</nav>
+<!-- end::navbar -->
+
+<!-- begin::main content -->
+<main class="main-content">
+    <div class="container-fluid">
+
+
+        <!-- 钱包列表开始 -->
+        <div class="row">
+            <div class="col-md-9">
+                <!-- 几个操作按钮 -->
+                <button type="button" class="btn btn-success sweet-success" onclick="popNewIncome()">+ 新的收入</button>
+                <button type="button" class="btn btn-danger sweet-error" onclick="popNewExpend()">- 新的支出</button>
+                <button type="button" class="btn btn-warning sweet-warning" onclick="popTransfer()">○ 资产转移</button>
+                <br/>
+                <br/>
+                <!-- 操作按钮结束 -->
+                <div class="page-header d-md-flex justify-content-between align-items-center">
+                    <h5 id="recordTitle">流水记录</h5>
+                </div>
+                <!-- 记录列表 -->
+                <div id="recordList">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <!-- 几个操作按钮 -->
+                <button type="button" class="btn btn-success sweet-success" onclick="popNewAsset()">+ 新建钱包</button>
+                <br/>
+                <br/>
+                <div class="page-header d-md-flex justify-content-between align-items-center">
+                    <h5>我的钱包</h5>
+                </div>
+                <div class="card">
+                    <div class="card-body" id="assetList">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 钱包列表结束 -->
+
+        <!-- 弹框部分开始 -->
+        <!-- 弹框背景层 -->
+        <div id="popLayer">
+        </div>
+        <!-- 新的收入弹出层 -->
+        <div class="col-md-6">
+            <div class="card" id="popBox">
+                <div class="card-body">
+                    <!-- 加载提示 -->
+                    <div id="popInfo">
+                        <h5 class="card-title" style="text-align: center; display: none;">请稍等...</h5>
+                    </div>
+                    <div id="popContent">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 弹框部分结束 -->
+
+    </div>
+</main>
+<!-- end::main content -->
+</body>
+<script src="assets/js/jquery-3.5.1.js"></script>
+<script src="assets/js/pop.js"></script>
+<script src="assets/js/main.js"></script>
+
+</html>
